@@ -33,7 +33,6 @@ public class WeatherService {
     public Response getForecast(String zipCode) {
 
         ZipCode zip = new ZipCode(zipCode);
-
         String url = "http://api.openweathermap.org/data/2.5/weather?zip=" + zipCode + "&units=imperial&appid="
                 + apiKey;
         RestTemplate restTemplate = new RestTemplate();
@@ -42,7 +41,6 @@ public class WeatherService {
             if (zipCodeRepository.findByZip(zipCode) == null) {
                 zipCodeRepository.save(zip);
             }
-
             return restTemplate.getForObject(url, Response.class);
         } catch (HttpClientErrorException | ConstraintViolationException ex) {
             Response response = new Response();
